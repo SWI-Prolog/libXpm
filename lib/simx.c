@@ -36,7 +36,7 @@
 #ifdef FOR_MSW
 
 #include "xpm.h"
-#include "xpmi.h"			/* for XpmMalloc */
+#include "XpmI.h"			/* for XpmMalloc */
 
 /*
  * On DOS size_t is only 2 bytes, thus malloc(size_t s) can only malloc
@@ -119,7 +119,7 @@ XDefaultScreen(Display *d)
 
 /* I get only 1 plane but 8 bits per pixel,
    so I think BITSPIXEL should be depth */
-int 
+int
 XDefaultDepth(Display *display, Screen *screen)
 {
     int d, b;
@@ -137,7 +137,7 @@ XDefaultColormap(Display *display, Screen *screen)
 
 /* convert hex color names,
    wrong digits (not a-f,A-F,0-9) are treated as zero */
-static int 
+static int
 hexCharToInt(c)
 {
     int r;
@@ -154,7 +154,7 @@ hexCharToInt(c)
     return (r);
 }
 
-static int 
+static int
 rgbFromHex(char *hex, int *r, int *g, int *b)
 {
     int len;
@@ -184,7 +184,7 @@ rgbFromHex(char *hex, int *r, int *g, int *b)
 }
 
 /* Color related functions */
-int 
+int
 XParseColor(Display *d, Colormap *cmap, char *name, XColor *color)
 {
     int r, g, b;			/* only 8 bit values used */
@@ -212,14 +212,14 @@ XParseColor(Display *d, Colormap *cmap, char *name, XColor *color)
 }
 
 
-int 
-XAllocColor(Display *d, Colormap cmap, XColor *color)
+int
+XAllocColor(Display *d, Colormap *cmap, XColor *color)
 {
 /* colormap not used yet so color->pixel is the real COLORREF (RBG) and not an
    index in some colormap as in X */
     return (1);
 }
-void 
+void
 XQueryColors(Display *display, Colormap *colormap,
 	     XColor *xcolors, int ncolors)
 {
@@ -235,7 +235,7 @@ XQueryColors(Display *display, Colormap *colormap,
     }
     return;
 }
-int 
+int
 XFreeColors(Display *d, Colormap cmap,
 	    unsigned long pixels[], int npixels, unsigned long planes)
 {
@@ -266,14 +266,14 @@ XCreateImage(Display *d, Visual *v,
     return (img);
 }
 
-void 
+void
 XImageFree(XImage *img)
 {
     if (img) {
 	XpmFree(img);
     }
 }
-void 
+void
 XDestroyImage(XImage *img)
 {
     if (img) {
