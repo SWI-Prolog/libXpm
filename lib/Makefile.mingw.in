@@ -1,0 +1,43 @@
+################################################################
+# MSVC Makefile
+#
+# Author: Jan Wielemaker
+# Date:   Feb 17, 2001
+################################################################
+
+# Destinations.  Please edit
+prefix=@prefix@
+LIBDIR=$(prefix)/lib
+INCDIR=$(prefix)/include/X11
+
+CC=@CC@
+CFLAGS=@CFLAGS@ -DWIN32 -DFOR_MSW
+AR=@AR@
+RANLIB=@RANLIB@
+INSTALL=cp
+
+XPMLIB=libXpm.a
+
+OBJ=	Attrib.o CrBufFrI.o CrDatFrI.o CrIFrBuf.o CrIFrDat.o \
+	Image.o Info.o RdFToBuf.o RdFToDat.o RdFToI.o \
+	WrFFrBuf.o WrFFrDat.o WrFFrI.o create.o \
+	data.o hashtab.o misc.o parse.o rgb.o scan.o \
+	simx.o
+
+$(XPMLIB):	$(OBJ)
+		rm -f $@
+		$(AR) r $@ $(OBJ)
+		$(RANLIB) $@
+
+install:	$(XPMLIB)
+		$(INSTALL) $(XPMLIB) "$(LIBDIR)"
+		$(INSTALL) xpm.h "$(INCDIR)"
+		$(INSTALL) simx.h "$(INCDIR)"
+
+clean::
+		rm -f *~ *.o
+
+distclean:	clean
+		rm -f Makefile.mingw config.log config.status
+		rm -rf autom4te.cache
+		rm -f $(XPMLIB)
