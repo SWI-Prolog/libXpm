@@ -8,7 +8,7 @@
 # Destinations.  Please edit
 prefix=@prefix@
 LIBDIR=$(prefix)/lib
-INCDIR=$(prefix)/include/X11
+X11INCDIR=$(prefix)/include/X11
 
 CC=@CC@
 CFLAGS=@CFLAGS@ -DWIN32 -DFOR_MSW
@@ -31,8 +31,9 @@ $(XPMLIB):	$(OBJ)
 
 install:	$(XPMLIB)
 		$(INSTALL) $(XPMLIB) "$(LIBDIR)"
-		$(INSTALL) xpm.h "$(INCDIR)"
-		$(INSTALL) simx.h "$(INCDIR)"
+		mkdir -p "$(X11INCDIR)"
+		$(INSTALL) xpm.h "$(X11INCDIR)"
+		$(INSTALL) simx.h "$(X11INCDIR)"
 
 clean::
 		rm -f *~ *.o
