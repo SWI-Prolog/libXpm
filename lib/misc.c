@@ -79,8 +79,7 @@ xpmatoui(p, l, ui_return)
  * Function returning a character string related to an error code.
  */
 char *
-XpmGetErrorString(errcode)
-    int errcode;
+XpmGetErrorString(int errcode)
 {
     switch (errcode) {
     case XpmColorError:
